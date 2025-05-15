@@ -1,0 +1,14 @@
+
+
+
+
+First we need to create a helper file that contains all the names of the Stops in the swiss network, Stop Abbr., Stops lang/long (this should be in format that SUMO can understand), and on which edge on the sumo network is this stop is represented (I don't know maybe edge id or something, that sumo can easily understand). Let's call this file as "simple_stop_information.csv" for now. 
+
+This lines represented with the "Numeric ID of the line segment" in linie.csv is not real trips on the Swiss Route Network (I guess). 
+
+It's more like physical connection. So this can be used for routing (because it actually tells which railway line goes from which stops), in order to create route for trips (we need to tell which train should move between which stations). Let me give you an example. 
+Let's say in linie.csv we found a line with id number 444 and goes through stations A-B-C-D, another line with the id number 777 which goes through B-E-F. 
+
+Let's assume we check and found out that there is a scheduled trip between Stations A-F. And also We let's assume it stops only one intermediate stop which is E. So the scheduled trip in real life follows this stops, A (origin), B(intermediate stop), F(destination). So in order to define this route for SUMO with modular, automated python script, we should give this script (let's call this script as simple_route_creator.py for now) the Name of this trip AF1, and in another helper file this script reads the Origin, Destination and intermediate stops of this file. Let's call this helper file as "trip_names_helper" for now, for clarity. 
+
+Than this simple_route_creator.py goes to another helper file (let's call this  as line_edge_sequences)

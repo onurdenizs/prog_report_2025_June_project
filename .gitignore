@@ -1,0 +1,22 @@
+# Ignore raw and processed data
+/data/
+/output/
+*.csv
+*.geojson
+*.log
+
+# Ignore heavy GTFS-based SUMO network files
+/SUMO/input/gtfs_network/
+
+# Ignore temporary or backup files
+*.tmp
+*.bak
+~$*
+*.swp
+*.swo
+
+# Ignore Netconvert-generated files (optional if you regenerate them)
+*.net.xml
+*.nod.xml
+*.edg.xml
+*.con.xml
