@@ -1,68 +1,105 @@
-# 🚆 SUMO Swiss Network Simulation — June 2025 Project
+# 🇨🇭 SUMO Swiss Network Simulation — June 2025 Progress Report
 
-This repository contains a structured simulation environment to model and evaluate **Swiss railway operations**, especially under **Virtual Coupling (VC)** scenarios, using [SUMO (Simulation of Urban Mobility)](https://www.eclipse.org/sumo/).
-
----
-
-## 🎯 Purpose
-
-This project supports a PhD thesis titled:
-
-> **"Analysis of Virtual Coupling in Operations Through Railway Networks"**
-
-The simulation models a partially VC-upgraded network, includes real Swiss train formations, and prepares the foundation for academic publications and professional use cases in transport engineering.
+This project simulates realistic Swiss railway operations using [SUMO](https://www.eclipse.dev/sumo/) (Simulation of Urban MObility), with the ultimate goal of evaluating the feasibility and impact of **Virtual Coupling (VC)** in partially upgraded railway networks. It forms the core of a PhD thesis in Railway Engineering.
 
 ---
 
-## 🗂 Project Structure
+## 🎯 Project Objectives
 
+- Build a simplified yet realistic rail network of Switzerland in SUMO
+- Integrate real-world train schedules, stop mappings, and rolling stock specs
+- Evaluate VC vs. non-VC operations based on KPIs (delays, headway, throughput)
+- Support scalable routing and simulation pipelines in Python
+- Publish academic results and use as a career portfolio
 
-├── scripts/ # All core and diagnostic Python scripts
-│ ├── dataset analysis/ # One-off analysis scripts for CSV files
-│ ├── diagnostics/ # Coverage, validation, debugging
-│ ├── simple_network_creators/ # Scripts for simplified SUMO networks
-│ └── ... # Main simulation & GTFS processing scripts
+---
+
+## 🧱 Project Structure
+
+prog_report_2025_June_project/
+│
+├── data/ # [IGNORED] Raw/processed datasets (GTFS, vehicle specs, topologies)
+├── output/ # [IGNORED] Figures, logs, route files
+│
+├── scripts/ # All SUMO + Python pipeline scripts
+│ ├── dataset analysis/ # Analysis of input datasets
+│ ├── preprocessing/ # Stop-edge mapping, filtering, cleaning
+│ ├── diagnostics/ # Debug, validate, visualize
+│ ├── simple_network_creators/
+│ └── write_* # XML writers for nodes, edges, routes
+│
 ├── SUMO/
-│ ├── .gitkeep # Keeps folder tracked without large files
-│ └── input/gtfs_network/ # (Ignored) Massive full-Switzerland GTFS network
-├── data/ # 🚫 Ignored: Raw, interim, and processed datasets
-├── output/ # 🚫 Ignored: Figures, logs, and visual outputs
-├── reports/ # Optional: Markdown, LaTeX, or DOCX progress reports
-└── .gitignore # Ignores large files and unneeded local data
+│ ├── .gitkeep # Keeps folder structure in Git
+│ └── input/ # SUMO network, vehicle types, route files (only non-large files)
+│
+├── Route Creation with GTFS Phase Details/
+├── Route Creation with polygons/
+├── create_project_structure.py
+├── README.md
+└── .gitignore
 
 
 ---
 
-## 🧪 Core Features
+## 🔁 Core Workflow (Simplified)
 
-- ✔️ **Custom node and edge generation** using Swiss geo datasets (`linie_mit_polygon.csv`)
-- ✔️ **GTFS integration** for route simulation and stop-edge mapping
-- ✔️ **Realistic train vehicle types** from formation and technical data
-- ✔️ **Diagnostics** to ensure route coverage and SUMO validity
-- ✔️ **Modular pipeline** for rapid iteration, reusable for German networks
-
----
-
-## ⚠️ GitHub Note
-
-Large files over 100MB (e.g., full `april_2025_swiss.net.xml`) were **removed from history** to comply with GitHub limits. These are locally regenerated and ignored via `.gitignore`.
+1. **Extract & Convert Geometry** → `extract_nodes_and_edges.py`
+2. **Write SUMO Nodes/Edges** → `write_sumo_nodes.py`, `write_sumo_edges.py`
+3. **Generate SUMO Network** → `generate_net_with_netconvert.py`
+4. **Map Stops to Nodes** → `generate_stop_node_mapping.py`
+5. **Analyze & Merge Vehicles** → `merge_vehicle_data.py`
+6. **Write Routes** → `parse_gtfs_to_route_edge_map.py`
+7. **Visualize & Debug** → scripts in `/diagnostics/`
 
 ---
 
-## 📚 Related Files
+## 📚 Data Sources
 
-- `Progress Report JUNE 2025 Master Plan.docx` — main academic planning document
-- `Generating Swiss Network Pipeline.docx` — technical documentation
-- `DETAILED AI PROMPT.docx` — summarized project prompt for AI systems
-
----
-
-## 📌 Future Goals
-
-- Add `.rou.xml` route generators from GTFS + logic
-- Implement VC fallback and failure cases
-- Extend simulations to German rail networks
+- **GTFS**: SBB Switzerland public transport feeds (2025)
+- **Formation Data**: `jahresformation.csv`
+- **Rolling Stock**: `rollmaterial.csv`, `rollmaterial-matching.csv`
+- **Topology**: `linie_mit_polygon.csv`, `haltestelle-haltekante.csv`
 
 ---
 
-> _Maintained by [@onurdenizs](https://github.com/onurdenizs) — PhD Candidate, Railway Engineering_
+## 📌 Key Features
+
+- UTM conversion for SUMO compatibility
+- Multi-stop routing via edge-path inference
+- Logical-to-physical stop mapping support
+- Route validation and visual debugging
+- Clean, modular code with logging and docstrings
+
+---
+
+## 🚫 Files Ignored by `.gitignore`
+
+To keep the repository clean and under GitHub limits:
+
+- `/data/`, `/output/`
+- `/SUMO/input/gtfs_network/`
+- All `.csv`, `.geojson`, `.log` files
+- Temporary/backup files (`*.tmp`, `*.bak`, `~$*`)
+
+---
+
+## ✍️ Author
+
+**Onur Deniz**  
+Commercial Pilot ✈️ | PhD Candidate in Railway Engineering 🚆  
+Working on Virtual Coupling and intelligent train control  
+📍 Istanbul → Germany (Escape Plan™)
+
+---
+
+## 📄 License
+
+[MIT License](LICENSE) *(add later if needed)*
+
+---
+
+Let me know if you’d like to:
+
+- Split this into sections for GitHub Pages
+- Add example outputs, diagrams, or results
+- Prepare for eventual academic publication upload
